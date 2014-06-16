@@ -91,6 +91,8 @@ function returnOrders(response){
         strhtml += '商品列表';
         strhtml += '________';
         strhtml += '留言';
+        strhtml += '________';
+        strhtml += '付款方式';
         strhtml += '</P>';
 
         for(i in docs){
@@ -141,6 +143,12 @@ function returnOrders(response){
 
             strhtml += '________';
             strhtml += docs[i].memo;
+
+            if(docs[i].payment_way_id == 1){
+                strhtml += '货到付款';
+            }else if(docs[i].payment_way_id == 2){
+                strhtml += '支付宝';
+            }
             strhtml += '</P>';
 
             if(docs[i].order_states == 1){
