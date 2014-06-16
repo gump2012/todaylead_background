@@ -3,8 +3,65 @@
  */
 var mongoose = require('mongoose');
 var regionarr = require('./region');
+var querystring = require("querystring");
 
 exports.showorder = function(response, request){
+
+    var requestData = '';
+    request.addListener('data', function(postDataChunk) {
+        requestData += postDataChunk;
+    });
+
+    request.addListener('end', function() {
+        if(requestData){
+            var ordermodel = mongoose.model('todayOrder');
+            var strid = querystring.parse(requestData).dajiji;
+            ordermodel.findOne({order_id:strid},function(err,doc){
+                if(doc){
+                    doc.order_states = 1;
+                    doc.save(function( err, silence ) {
+                        if( err )
+                        {
+                            console.log(err);
+                        }
+
+                        returnOrders(response);
+                    });
+                }
+                else{
+                    returnOrders(response);
+                }
+            })
+        }
+        else{
+            returnOrders(response);
+        }
+    });
+}
+
+function getaddress(orderitem){
+    var straddress = '';
+    for(i in regionarr.regionarr){
+        if(orderitem.province == regionarr.regionarr[i].id){
+            straddress += regionarr.regionarr[i].region_name;
+        }
+    }
+    for(i in regionarr.regionarr){
+        if(orderitem.city == regionarr.regionarr[i].id){
+            straddress += regionarr.regionarr[i].region_name;
+        }
+    }
+    for(i in regionarr.regionarr){
+        if(orderitem.area == regionarr.regionarr[i].id){
+            straddress += regionarr.regionarr[i].region_name;
+        }
+    }
+
+    straddress += orderitem.address;
+    return straddress;
+}
+
+function returnOrders(response){
     var ordermodel = mongoose.model('todayOrder');
     ordermodel.find({},{},{sort:{'_id': -1}},function(err,docs){
         var strhtml ='<html>'+
@@ -13,6 +70,8 @@ exports.showorder = function(response, request){
             'charset=UTF-8" />'+
             '</head>'+
             '<body>';
+
+        strhtml +='<form action="/showorders" method="post">'+ '<input type="text" name="dajiji"/>'+'<input type="submit" value="确认" />'+'</form>'
 
         strhtml += '<P align=left>';
         strhtml += '订单号';
@@ -84,11 +143,11 @@ exports.showorder = function(response, request){
             strhtml += docs[i].memo;
             strhtml += '</P>';
 
-            if(docs[i].order_states == 0){
-                 strhtml += '<button type="button">确认</button>';
+            if(docs[i].order_states == 1){
+                strhtml += '<P align=left><font color="green">已确认</font></P>';
             }
             else{
-                strhtml += '<P align=left><font color="red">已确认</font></P>';
+                strhtml += '<P align=left><font color="red">未确认</font></P>';
             }
         }
 
@@ -99,26 +158,4 @@ exports.showorder = function(response, request){
         response.write(strhtml);
         response.end();
     });
-}
-
-function getaddress(orderitem){
-    var straddress = '';
-    for(i in regionarr.regionarr){
-        if(orderitem.province == regionarr.regionarr[i].id){
-            straddress += regionarr.regionarr[i].region_name;
-        }
-    }
-    for(i in regionarr.regionarr){
-        if(orderitem.city == regionarr.regionarr[i].id){
-            straddress += regionarr.regionarr[i].region_name;
-        }
-    }
-    for(i in regionarr.regionarr){
-        if(orderitem.area == regionarr.regionarr[i].id){
-            straddress += regionarr.regionarr[i].region_name;
-        }
-    }
-
-    straddress += orderitem.address;
-    return straddress;
 }
