@@ -2,6 +2,7 @@
  * Created by lishiming on 14-6-16.
  */
 var mongoose = require('mongoose');
+var regionarr = require('./region');
 
 exports.showorder = function(response, request){
     var ordermodel = mongoose.model('todayOrder');
@@ -17,12 +18,29 @@ exports.showorder = function(response, request){
         strhtml += '订单号';
         strhtml += '________';
         strhtml += '手机号';
+        strhtml += '________';
+        strhtml += '地址';
+        strhtml += '________';
+        strhtml += '联系人';
+        strhtml += '________';
+        strhtml += '商品数量';
+        strhtml += '________';
+        strhtml += '留言';
         strhtml += '</P>';
+
         for(i in docs){
             strhtml += '<P align=left>';
             strhtml += docs[i].order_id;
             strhtml += '________';
             strhtml += docs[i].mobile;
+            strhtml += '________';
+            strhtml += getaddress(docs[i]);
+            strhtml += '________';
+            strhtml += docs[i].consignee;
+            strhtml += '________';
+            strhtml += docs[i].goods_number;
+            strhtml += '________';
+            strhtml += docs[i].memo;
             strhtml += '</P>';
 
             if(docs[i].order_states == 0){
@@ -40,4 +58,26 @@ exports.showorder = function(response, request){
         response.write(strhtml);
         response.end();
     });
+}
+
+function getaddress(orderitem){
+    var straddress = '';
+    for(i in regionarr.regionarr){
+        if(orderitem.province == regionarr.regionarr[i].id){
+            straddress += regionarr.regionarr[i].region_name;
+        }
+    }
+    for(i in regionarr.regionarr){
+        if(orderitem.city == regionarr.regionarr[i].id){
+            straddress += regionarr.regionarr[i].region_name;
+        }
+    }
+    for(i in regionarr.regionarr){
+        if(orderitem.area == regionarr.regionarr[i].id){
+            straddress += regionarr.regionarr[i].region_name;
+        }
+    }
+
+    straddress += orderitem.address;
+    return straddress;
 }
