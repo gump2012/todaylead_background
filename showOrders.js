@@ -34,13 +34,35 @@ exports.showorder = function(response, request){
             strhtml += '________';
             strhtml += docs[i].mobile;
             strhtml += '________';
-            strhtml += getaddress(docs[i]);
+
+            var straddress = '';
+            for(j in regionarr.regionarr){
+                if(docs[i].province == regionarr.regionarr[j].id){
+                    straddress += regionarr.regionarr[j].region_name;
+                }
+            }
+            for(j in regionarr.regionarr){
+                if(docs[i].city == regionarr.regionarr[j].id){
+                    straddress += regionarr.regionarr[j].region_name;
+                }
+            }
+            for(j in regionarr.regionarr){
+                if(docs[i].area == regionarr.regionarr[j].id){
+                    straddress += regionarr.regionarr[j].region_name;
+                }
+            }
+
+            straddress += docs[i].address;
+
+            strhtml += straddress;
+
             strhtml += '________';
             strhtml += docs[i].consignee;
             strhtml += '________';
             strhtml += docs[i].goods_number;
             strhtml += '________';
             strhtml += docs[i].memo;
+
             strhtml += '</P>';
 
             if(docs[i].order_states == 0){
