@@ -21,7 +21,7 @@ exports.showorder = function(response, request){
             '</html>';
 
         response.writeHead(200, {"Content-Type": "text/html"});
-        response.write(body);
+        response.write(strhtml);
         response.end();
     });
 }
