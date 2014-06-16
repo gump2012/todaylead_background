@@ -24,6 +24,13 @@ exports.showorder = function(response, request){
             strhtml += '________';
             strhtml += docs[i].mobile;
             strhtml += '</P>';
+
+            if(docs[i].order_states == 0){
+                 strhtml += '<button type="button">确认</button>';
+            }
+            else{
+                strhtml += '<P align=left><font color="red">已确认</font></P>';
+            }
         }
 
         strhtml += '</body>'+
