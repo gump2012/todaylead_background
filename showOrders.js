@@ -13,10 +13,15 @@ exports.showorder = function(response, request){
             '</head>'+
             '<body>';
 
+        strhtml += '<P align=left>';
+        strhtml += '订单号';
+        strhtml += '________';
+        strhtml += '手机号';
+        strhtml += '</P>';
         for(i in docs){
             strhtml += '<P align=left>';
             strhtml += docs[i].order_id;
-            strhtml += '    ';
+            strhtml += '________';
             strhtml += docs[i].mobile;
             strhtml += '</P>';
         }
