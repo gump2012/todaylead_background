@@ -14,7 +14,7 @@ exports.showorder = function(response, request){
             '<body>';
 
         for(i in docs){
-            strhtml += '<P align=left>这段在浏览器的左侧</P>';
+            strhtml += '<P align=left>'+docs.mobile+'</P>';
         }
 
         strhtml += '</body>'+
