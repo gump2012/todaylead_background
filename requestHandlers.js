@@ -2,8 +2,9 @@
  * Created by lishiming on 14-6-13.
  */
 var querystring = require("querystring");
+var showorders = require('./showOrders');
 
-function start(response, postData) {
+function start(response, request) {
     console.log("Request handler 'start' was called.");
 
     var body = '<html>'+
@@ -24,12 +25,23 @@ function start(response, postData) {
     response.end();
 }
 
-function upload(response, postData) {
-    console.log("Request handler 'upload' was called.");
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.write("You've sent the text: "+
-        querystring.parse(postData).text);
-    response.end();
+function upload(response, request) {
+    var requestData = '';
+    request.addListener('data', function(postDataChunk) {
+        requestData += postDataChunk;
+    });
+
+    request.addListener('end', function() {
+        console.log("Request handler 'upload' was called.");
+        response.writeHead(200, {"Content-Type": "text/plain"});
+        response.write("You've sent the text: "+
+            querystring.parse(requestData).text);
+        response.end();
+    });
+}
+
+exports.showorder = function(response,request){
+    showorders.showorder(response,request);
 }
 
 exports.start = start;
