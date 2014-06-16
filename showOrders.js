@@ -14,7 +14,11 @@ exports.showorder = function(response, request){
             '<body>';
 
         for(i in docs){
-            strhtml += '<P align=left>'+docs.mobile+'</P>';
+            strhtml += '<P align=left>';
+            strhtml += docs.order_id;
+            strhtml += '    ';
+            strhtml += docs.mobile;
+            strhtml += '</P>';
         }
 
         strhtml += '</body>'+
