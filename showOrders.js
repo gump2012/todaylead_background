@@ -25,6 +25,12 @@ exports.showorder = function(response, request){
         strhtml += '________';
         strhtml += '商品数量';
         strhtml += '________';
+        strhtml += '运费';
+        strhtml += '________';
+        strhtml += '总价';
+        strhtml += '________';
+        strhtml += '商品列表';
+        strhtml += '________';
         strhtml += '留言';
         strhtml += '</P>';
 
@@ -61,8 +67,21 @@ exports.showorder = function(response, request){
             strhtml += '________';
             strhtml += docs[i].goods_number;
             strhtml += '________';
-            strhtml += docs[i].memo;
+            strhtml += docs[i].shipping_fee;
+            strhtml += '________';
+            strhtml += new Number(docs[i].shipping_fee) + new Number(docs[i].promotion_totalprice);
 
+            for(j in docs[i].productlist){
+                if(docs[i].productlist[j].title && docs[i].productlist[j].quantity){
+                    strhtml += '________';
+                    strhtml += docs[i].productlist[j].title;
+                    strhtml += '________';
+                    strhtml += docs[i].productlist[j].quantity;
+                }
+            }
+
+            strhtml += '________';
+            strhtml += docs[i].memo;
             strhtml += '</P>';
 
             if(docs[i].order_states == 0){
