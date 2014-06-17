@@ -71,7 +71,7 @@ function returnOrders(response){
             '</head>'+
             '<body>';
 
-        strhtml +='<form action="/showorders" method="post">'+ '<input type="text" name="dajiji"/>'+'<input type="submit" value="确认" />'+'</form>'
+        strhtml +='<form action="/showorders" method="post">'+ '<input type="text" name="dajiji"/>'+'<input type="submit" value="确认该订单号" />'+'</form>'
 
         strhtml += '<P align=left>';
         strhtml += '订单号';
