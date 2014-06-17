@@ -64,6 +64,7 @@ function getaddress(orderitem){
 function returnOrders(response){
     var ordermodel = mongoose.model('todayOrder');
     ordermodel.find({},{},{sort:{'_id': -1}},function(err,docs){
+        var strseparator = '____';
         var strhtml ='<html>'+
             '<head>'+
             '<meta http-equiv="Content-Type" content="text/html; '+
@@ -79,32 +80,36 @@ function returnOrders(response){
             '</form>';
         strhtml += '<P align=left>';
         strhtml += '订单号';
-        strhtml += '________';
+        strhtml += strseparator;
         strhtml += '手机号';
-        strhtml += '________';
+        strhtml += strseparator;
         strhtml += '地址';
-        strhtml += '________';
+        strhtml += strseparator;
         strhtml += '联系人';
-        strhtml += '________';
+        strhtml += strseparator;
         strhtml += '商品数量';
-        strhtml += '________';
+        strhtml += strseparator;
         strhtml += '运费';
-        strhtml += '________';
+        strhtml += strseparator;
         strhtml += '总价';
-        strhtml += '________';
+        strhtml += strseparator;
         strhtml += '商品列表';
-        strhtml += '________';
+        strhtml += strseparator;
         strhtml += '留言';
-        strhtml += '________';
+        strhtml += strseparator;
         strhtml += '付款方式';
+        strhtml += strseparator;
+        strhtml += '快递名称代号';
+        strhtml += strseparator;
+        strhtml += '快递号';
         strhtml += '</P>';
 
         for(i in docs){
             strhtml += '<P align=left>';
             strhtml += docs[i].order_id;
-            strhtml += '________';
+            strhtml += strseparator;
             strhtml += docs[i].mobile;
-            strhtml += '________';
+            strhtml += strseparator;
 
             var straddress = '';
             for(j in regionarr.regionarr){
@@ -127,28 +132,32 @@ function returnOrders(response){
 
             strhtml += straddress;
 
-            strhtml += '________';
+            strhtml += strseparator;
             strhtml += docs[i].consignee;
-            strhtml += '________';
+            strhtml += strseparator;
             strhtml += docs[i].goods_number;
-            strhtml += '________';
+            strhtml += strseparator;
             strhtml += docs[i].shipping_fee;
-            strhtml += '________';
+            strhtml += strseparator;
             strhtml += new Number(docs[i].shipping_fee) + new Number(docs[i].promotion_totalprice);
 
             for(j in docs[i].productlist){
                 if(docs[i].productlist[j].title && docs[i].productlist[j].quantity){
-                    strhtml += '________';
+                    strhtml += strseparator;
                     strhtml += docs[i].productlist[j].title;
-                    strhtml += '________';
+                    strhtml += strseparator;
                     strhtml += docs[i].productlist[j].quantity;
                 }
             }
 
-            strhtml += '________';
+            strhtml += strseparator;
             strhtml += docs[i].memo;
-            strhtml += '________';
+            strhtml += strseparator;
             strhtml += docs[i].payment_name;
+            strhtml += strseparator;
+            strhtml += docs[i].express_name;
+            strhtml += strseparator;
+            strhtml += docs[i].express_number;
             strhtml += '</P>';
 
             if(docs[i].order_states == 1){
