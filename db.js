@@ -33,6 +33,8 @@ exports.start = function (){
             ,shipping_states        :Number
             ,goods_number           :Number
             ,payment_name           :String
+            ,express_number         :String
+            ,express_name           :String
             ,productlist            :[mongoose.Schema.Types.Mixed]
         });
 

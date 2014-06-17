@@ -147,12 +147,8 @@ function returnOrders(response){
 
             strhtml += '________';
             strhtml += docs[i].memo;
-
-            if(docs[i].payment_way_id == 1){
-                strhtml += '货到付款';
-            }else if(docs[i].payment_way_id == 2){
-                strhtml += '支付宝';
-            }
+            strhtml += '________';
+            strhtml += docs[i].payment_name;
             strhtml += '</P>';
 
             if(docs[i].order_states == 1){

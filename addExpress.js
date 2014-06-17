@@ -2,6 +2,7 @@
  * Created by lishiming on 14-6-17.
  */
 var querystring = require("querystring");
+var mongoose = require('mongoose');
 exports.addexpress = function(response, request){
     var requestData = '';
     request.addListener('data', function(postDataChunk) {
@@ -11,11 +12,46 @@ exports.addexpress = function(response, request){
     request.addListener('end', function() {
         if(requestData){
             var strid = querystring.parse(requestData).order_id;
-            strid += querystring.parse(requestData).express_number;
-            strid += querystring.parse(requestData).express_name;
-            response.writeHead(200, {"Content-Type": "text/html"});
-            response.write(strid);
-            response.end();
+            var expressnumber = querystring.parse(requestData).express_number;
+            var expressname = querystring.parse(requestData).express_name;
+
+            var ordermodel = mongoose.model('todayOrder');
+            var strid = querystring.parse(requestData).dajiji;
+
+            if(strid && strid.length > 0 &&
+                expressname && expressname.length > 0 &&
+                expressnumber && expressnumber.length > 0){
+                ordermodel.findOne({order_id:strid},function(err,doc){
+                    if(doc){
+                        doc.express_number = expressnumber;
+                        doc.express_name = expressname;
+                        doc.save( function( err, silence ) {
+                            if( err )
+                            {
+                                console.log(err);
+                                response.writeHead(200, {"Content-Type": "text/html"});
+                                response.write('保存失败');
+                                response.end();
+                            }
+                            else{
+                                response.writeHead(200, {"Content-Type": "text/html"});
+                                response.write('保存成功');
+                                response.end();
+                            }
+                        });
+                    }
+                    else{
+                        response.writeHead(200, {"Content-Type": "text/html"});
+                        response.write('无此订单');
+                        response.end();
+                    }
+                });
+            }else{
+                response.writeHead(200, {"Content-Type": "text/html"});
+                response.write('参数不完整');
+                response.end();
+            }
+
         }
     });
 }
