@@ -3,6 +3,7 @@
  */
 var querystring = require("querystring");
 var showorders = require('./showOrders');
+var addex = require('./addExpress');
 
 function start(response, request) {
     console.log("Request handler 'start' was called.");
@@ -42,6 +43,10 @@ function upload(response, request) {
 
 exports.showorder = function(response,request){
     showorders.showorder(response,request);
+}
+
+exports.addexpress = function(response,request){
+    addex.addexpress(response,request);
 }
 
 exports.start = start;
