@@ -19,6 +19,7 @@ exports.addexpress = function(response, request){
             var strid = querystring.parse(requestData).dajiji;
 
             response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
+console.log(strid.length);
             if(strid && strid.length > 0 &&
                 expressname && expressname.length > 0 &&
                 expressnumber && expressnumber.length > 0){
