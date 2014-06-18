@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 exports.start = function (){
-    var mongodb = mongoose.connect('mongodb://182.92.80.203:27017/todaylead');
+    var mongodb = mongoose.connect('mongodb://115.28.225.137:27017/todaylead');
 
     var db = mongodb.connection;
 
