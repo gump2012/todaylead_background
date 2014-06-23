@@ -148,7 +148,7 @@ function returnOrders(response){
                     strhtml += strseparator;
                     strhtml += docs[i].productlist[j].title;
                     strhtml += strseparator;
-                    strhtml += docs[i].productlist[j].quantity;
+                    strhtml += '购买数量' + docs[i].productlist[j].quantity;
                 }
             }
 
