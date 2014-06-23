@@ -144,6 +144,8 @@ function returnOrders(response){
             for(j in docs[i].productlist){
                 if(docs[i].productlist[j].title && docs[i].productlist[j].quantity){
                     strhtml += strseparator;
+                    strhtml += 'pid' + docs[i].productlist[j].pid;
+                    strhtml += strseparator;
                     strhtml += docs[i].productlist[j].title;
                     strhtml += strseparator;
                     strhtml += docs[i].productlist[j].quantity;
