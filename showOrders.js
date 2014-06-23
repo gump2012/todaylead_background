@@ -139,7 +139,8 @@ function returnOrders(response){
             strhtml += strseparator;
             strhtml += '运费:'+docs[i].shipping_fee;
             strhtml += strseparator;
-            strhtml += '订单总价:'+new Number(docs[i].shipping_fee) + new Number(docs[i].promotion_totalprice);
+            strhtml += '订单总价:';
+            strhtml += new Number(docs[i].shipping_fee) + new Number(docs[i].promotion_totalprice);
 
             for(j in docs[i].productlist){
                 if(docs[i].productlist[j].title && docs[i].productlist[j].quantity){
