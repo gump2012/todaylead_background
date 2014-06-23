@@ -135,11 +135,11 @@ function returnOrders(response){
             strhtml += strseparator;
             strhtml += docs[i].consignee;
             strhtml += strseparator;
-            strhtml += docs[i].goods_number;
+            strhtml += '商品数量:'+docs[i].goods_number;
             strhtml += strseparator;
-            strhtml += docs[i].shipping_fee;
+            strhtml += '运费:'+docs[i].shipping_fee;
             strhtml += strseparator;
-            strhtml += new Number(docs[i].shipping_fee) + new Number(docs[i].promotion_totalprice);
+            strhtml += '订单总价:'+new Number(docs[i].shipping_fee) + new Number(docs[i].promotion_totalprice);
 
             for(j in docs[i].productlist){
                 if(docs[i].productlist[j].title && docs[i].productlist[j].quantity){
@@ -148,12 +148,12 @@ function returnOrders(response){
                     strhtml += strseparator;
                     strhtml += docs[i].productlist[j].title;
                     strhtml += strseparator;
-                    strhtml += '购买数量' + docs[i].productlist[j].quantity;
+                    strhtml += '购买数量:' + docs[i].productlist[j].quantity;
                 }
             }
 
             strhtml += strseparator;
-            strhtml += docs[i].memo;
+            strhtml += '留言:'+docs[i].memo;
             strhtml += strseparator;
             strhtml += docs[i].payment_name;
             strhtml += strseparator;
