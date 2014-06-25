@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var regionarr = require('./region');
 var querystring = require("querystring");
 var strseparator = '____';
+var strhtml = '';
 exports.showorder = function(response, request){
 
     var requestData = '';
@@ -65,7 +66,7 @@ function returnOrders(response){
     var ordermodel = mongoose.model('todayOrder');
     ordermodel.find({},{},{sort:{'_id': -1}},function(err,docs){
 
-        var strhtml ='<html>'+
+        strhtml ='<html>'+
             '<head>'+
             '<meta http-equiv="Content-Type" content="text/html; '+
             'charset=UTF-8" />'+
@@ -104,7 +105,7 @@ function returnOrders(response){
         strhtml += '快递号';
         strhtml += '</P>';
 
-        fillOrderInfo(strhtml,docs,0);
+        fillOrderInfo(docs,0);
 
         strhtml += '</body>'+
             '</html>';
@@ -115,7 +116,7 @@ function returnOrders(response){
     });
 }
 
-function fillOrderInfo(strhtml,docs,index){
+function fillOrderInfo(docs,index){
     if(index < docs.length){
         strhtml += '<P align=left>';
         strhtml += docs[index].order_id;
@@ -154,11 +155,11 @@ function fillOrderInfo(strhtml,docs,index){
         strhtml += '订单总价:';
         strhtml += new Number(docs[index].shipping_fee) + new Number(docs[index].promotion_totalprice);
 
-        fillProductInfo(strhtml,docs,docs[index].productlist,0,index);
+        fillProductInfo(docs,docs[index].productlist,0,index);
     }
 }
 
-function fillProductInfo(strhtml,docs,products,pindex,index){
+function fillProductInfo(docs,products,pindex,index){
     if(pindex >= products.length){
         strhtml += strseparator;
         strhtml += '留言:'+docs[index].memo;
@@ -177,7 +178,7 @@ function fillProductInfo(strhtml,docs,products,pindex,index){
             strhtml += '<P align=left><font color="red">未确认</font></P>';
         }
 
-        fillOrderInfo(strhtml,docs,index+1);
+        fillOrderInfo(docs,index+1);
     }
     else{
         if(products[pindex].title && products[pindex].quantity){
@@ -198,13 +199,13 @@ function fillProductInfo(strhtml,docs,products,pindex,index){
                         strhtml += '属性:没有这个属性id' + products[pindex].attr_list[0].goods_attr_id;
                     }
 
-                    fillProductInfo(strhtml,docs,products,pindex+1,index);
+                    fillProductInfo(docs,products,pindex+1,index);
                 });
             }
             else{
                 strhtml += strseparator;
                 strhtml += '商品怎么没属性呢';
-                fillProductInfo(strhtml,docs,products,pindex+1,index);
+                fillProductInfo(docs,products,pindex+1,index);
             }
         }
     }
