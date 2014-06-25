@@ -150,6 +150,10 @@ function returnOrders(response){
                     strhtml += docs[i].productlist[j].title;
                     strhtml += strseparator;
                     strhtml += '购买数量:' + docs[i].productlist[j].quantity;
+                    if(docs[i].productlist[j].attr_list && docs[i].productlist[j].attr_list[0]){
+                        strhtml += strseparator;
+                        strhtml += '属性id:' + docs[i].productlist[j].attr_list[0].goods_attr_id;
+                    }
                 }
             }
 
