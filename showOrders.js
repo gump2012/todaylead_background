@@ -180,7 +180,7 @@ function fillProductInfo(strhtml,docs,products,pindex,index){
         fillOrderInfo(strhtml,docs,index+1);
     }
     else{
-        if(products[pindex].title && pindex[pindex].quantity){
+        if(products[pindex].title && products[pindex].quantity){
             strhtml += strseparator;
             strhtml += 'pid' + products[pindex].pid;
             strhtml += strseparator;
