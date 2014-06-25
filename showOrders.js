@@ -118,9 +118,9 @@ function returnOrders(response){
 function fillOrderInfo(strhtml,docs,index){
     if(index < docs.length){
         strhtml += '<P align=left>';
-        strhtml += docs[i].order_id;
+        strhtml += docs[index].order_id;
         strhtml += strseparator;
-        strhtml += docs[i].mobile;
+        strhtml += docs[index].mobile;
         strhtml += strseparator;
 
         var straddress = '';
@@ -161,13 +161,13 @@ function fillOrderInfo(strhtml,docs,index){
 function fillProductInfo(strhtml,docs,products,pindex,index){
     if(pindex >= products.length){
         strhtml += strseparator;
-        strhtml += '留言:'+docs[i].memo;
+        strhtml += '留言:'+docs[index].memo;
         strhtml += strseparator;
-        strhtml += docs[i].payment_name;
+        strhtml += docs[index].payment_name;
         strhtml += strseparator;
-        strhtml += docs[i].express_name;
+        strhtml += docs[index].express_name;
         strhtml += strseparator;
-        strhtml += docs[i].express_number;
+        strhtml += docs[index].express_number;
         strhtml += '</P>';
 
         if(docs[i].order_states == 1){
@@ -190,15 +190,20 @@ function fillProductInfo(strhtml,docs,products,pindex,index){
             if(products[pindex].attr_list && products[pindex].attr_list[0]){
                 attrmodel = mongoose.model('todayProductAttr');
                 attrmodel.findOne({goods_attr_id:products[pindex].attr_list[0].goods_attr_id},'attr_value',function(err,doc){
+                    strhtml += strseparator;
                     if(doc){
-                        strhtml += strseparator;
                         strhtml += '属性:' + doc.attr_value;
+                    }
+                    else{
+                        strhtml += '属性:没有这个属性id' + products[pindex].attr_list[0].goods_attr_id;
                     }
 
                     fillProductInfo(strhtml,docs,products,pindex+1,index);
                 });
             }
             else{
+                strhtml += strseparator;
+                strhtml += '商品怎么没属性呢';
                 fillProductInfo(strhtml,docs,products,pindex+1,index);
             }
         }
