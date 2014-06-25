@@ -171,7 +171,7 @@ function fillProductInfo(docs,products,pindex,index){
         strhtml += docs[index].express_number;
         strhtml += '</P>';
 
-        if(docs[i].order_states == 1){
+        if(docs[index].order_states == 1){
             strhtml += '<P align=left><font color="green">已确认</font></P>';
         }
         else{
