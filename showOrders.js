@@ -105,18 +105,13 @@ function returnOrders(response){
         strhtml += '快递号';
         strhtml += '</P>';
 
-        fillOrderInfo(docs,0);
+        fillOrderInfo(docs,0,response);
 
-        strhtml += '</body>'+
-            '</html>';
 
-        response.writeHead(200, {"Content-Type": "text/html"});
-        response.write(strhtml);
-        response.end();
     });
 }
 
-function fillOrderInfo(docs,index){
+function fillOrderInfo(docs,index,response){
     if(index < docs.length){
         strhtml += '<P align=left>';
         strhtml += docs[index].order_id;
@@ -155,11 +150,19 @@ function fillOrderInfo(docs,index){
         strhtml += '订单总价:';
         strhtml += new Number(docs[index].shipping_fee) + new Number(docs[index].promotion_totalprice);
 
-        fillProductInfo(docs,docs[index].productlist,0,index);
+        fillProductInfo(docs,docs[index].productlist,0,index,response);
+    }
+    else{
+        strhtml += '</body>'+
+            '</html>';
+
+        response.writeHead(200, {"Content-Type": "text/html"});
+        response.write(strhtml);
+        response.end();
     }
 }
 
-function fillProductInfo(docs,products,pindex,index){
+function fillProductInfo(docs,products,pindex,index,response){
     if(pindex >= products.length){
         strhtml += strseparator;
         strhtml += '留言:'+docs[index].memo;
@@ -177,8 +180,7 @@ function fillProductInfo(docs,products,pindex,index){
         else{
             strhtml += '<P align=left><font color="red">未确认</font></P>';
         }
-
-        fillOrderInfo(docs,index+1);
+        fillOrderInfo(docs,index+1,response);
     }
     else{
         if(products[pindex].title && products[pindex].quantity){
@@ -199,13 +201,13 @@ function fillProductInfo(docs,products,pindex,index){
                         strhtml += '属性:没有这个属性id' + products[pindex].attr_list[0].goods_attr_id;
                     }
 
-                    fillProductInfo(docs,products,pindex+1,index);
+                    fillProductInfo(docs,products,pindex+1,index,response);
                 });
             }
             else{
                 strhtml += strseparator;
                 strhtml += '商品怎么没属性呢';
-                fillProductInfo(docs,products,pindex+1,index);
+                fillProductInfo(docs,products,pindex+1,index,response);
             }
         }
     }
