@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var regionarr = require('./region');
 var querystring = require("querystring");
-
+var strseparator = '____';
 exports.showorder = function(response, request){
 
     var requestData = '';
@@ -64,7 +64,7 @@ function getaddress(orderitem){
 function returnOrders(response){
     var ordermodel = mongoose.model('todayOrder');
     ordermodel.find({},{},{sort:{'_id': -1}},function(err,docs){
-        var strseparator = '____';
+
         var strhtml ='<html>'+
             '<head>'+
             '<meta http-equiv="Content-Type" content="text/html; '+
