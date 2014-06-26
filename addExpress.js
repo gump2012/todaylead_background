@@ -16,7 +16,6 @@ exports.addexpress = function(response, request){
             var expressname = querystring.parse(requestData).express_name;
 
             var ordermodel = mongoose.model('todayOrder');
-            var strid = querystring.parse(requestData).dajiji;
 
             response.writeHead(200,{"Content-Type":"text/html;charset=UTF-8"});
             if(strid && expressname && expressnumber ){
