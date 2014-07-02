@@ -35,6 +35,7 @@ exports.start = function (){
             ,payment_name           :String
             ,express_number         :String
             ,express_name           :String
+            ,channel                :String
             ,productlist            :[mongoose.Schema.Types.Mixed]
         });
 

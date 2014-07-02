@@ -109,6 +109,8 @@ function returnOrders(response){
         strhtml += '快递名称代号';
         strhtml += strseparator;
         strhtml += '快递号';
+        strhtml += strseparator;
+        strhtml += '来自渠道'
         strhtml += '</P>';
 
         fillOrderInfo(docs,0,response);
@@ -178,6 +180,8 @@ function fillProductInfo(docs,products,pindex,index,response){
         strhtml += docs[index].express_name;
         strhtml += strseparator;
         strhtml += docs[index].express_number;
+        strhtml += strseparator;
+        strhtml += '来自:'+docs[index].channel;
         strhtml += '</P>';
 
         if(docs[index].order_states == 1){
