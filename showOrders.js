@@ -28,6 +28,8 @@ exports.showorder = function(response, request){
 
                         returnOrders(response);
                     });
+
+                    addVolume(doc);
                 }
                 else{
                     returnOrders(response);
@@ -210,5 +212,34 @@ function fillProductInfo(docs,products,pindex,index,response){
                 fillProductInfo(docs,products,pindex+1,index,response);
             }
         }
+    }
+}
+
+function addVolume(doc){
+    if(doc.productlist){
+        addOneVolume(doc.productlist,0);
+    }
+}
+
+function addOneVolume(productlist,index){
+    if(index < productlist.length){
+        productmodel = mongoose.model('todayProduct');
+        productmodel.findOne({pid:productlist[i].pid},function(err,doc){
+            if(doc){
+                if(doc.actualvolume){
+                    doc.actualvolume += new Number(productlist[i].quantity);
+                }
+                else{
+                    doc.actualvolume = new Number(productlist[i].quantity);
+                }
+                doc.save( function( err, silence ) {
+                    if( err )
+                    {
+                        console.log(err);
+                    }
+                });
+            }
+            addOneVolume(productlist,index+1);
+        });
     }
 }

@@ -55,5 +55,28 @@ exports.start = function (){
 
         mongoose.model('todayProductAttr',proAttrSchema);
 
+        var proSchema = new mongoose.Schema({
+            pid                 :{
+                type: Number,
+                unique: true
+            }
+            ,cid                :Number
+            ,title              :String
+            ,volume             :Number
+            ,recentvolume       :Number
+            ,org_price          :Number
+            ,price              :Number
+            ,state              :Number
+            ,stamper            :String
+            ,pic_url            :String
+            ,time               :Number
+            ,actualvolume       :Number    //实际销量
+            ,arrivaltime        :String    //上架时间
+            ,gallery            :[String]
+            ,detailpics         :[String]
+        });
+
+        mongoose.model('todayProduct',proSchema);
+
     });
 };
