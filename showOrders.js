@@ -19,17 +19,21 @@ exports.showorder = function(response, request){
             var strid = querystring.parse(requestData).dajiji;
             ordermodel.findOne({order_id:strid},function(err,doc){
                 if(doc){
-                    doc.order_states = 1;
-                    doc.save(function( err, silence ) {
-                        if( err )
-                        {
-                            console.log(err);
-                        }
+                    if(doc.order_states == 0){
+                        doc.order_states = 1;
+                        doc.save(function( err, silence ) {
+                            if( err )
+                            {
+                                console.log(err);
+                            }
 
+                            returnOrders(response);
+                        });
+                        addVolume(doc);
+                    }
+                    else{
                         returnOrders(response);
-                    });
-
-                    addVolume(doc);
+                    }
                 }
                 else{
                     returnOrders(response);
