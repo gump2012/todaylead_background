@@ -232,7 +232,7 @@ function addVolume(doc){
 function addOneVolume(productlist,index){
     if(index < productlist.length){
         productmodel = mongoose.model('todayProduct');
-        productmodel.findOne({pid:productlist[i].pid},function(err,doc){
+        productmodel.findOne({pid:productlist[index].pid},function(err,doc){
             if(doc){
                 if(doc.actualvolume){
                     doc.actualvolume += new Number(productlist[i].quantity);
