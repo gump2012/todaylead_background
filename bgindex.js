@@ -9,6 +9,7 @@ handle["/start"] = requestHandlers.start;
 handle["/upload"] = requestHandlers.upload;
 handle["/showorders"] = requestHandlers.showorder;
 handle["/addexpress"] = requestHandlers.addexpress;
+handle["/sendmail"] = requestHandlers.sendmail;
 
 server.start(router.route, handle);
 db.start();

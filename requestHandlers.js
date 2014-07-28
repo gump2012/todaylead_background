@@ -4,6 +4,7 @@
 var querystring = require("querystring");
 var showorders = require('./showOrders');
 var addex = require('./addExpress');
+var sendmail = require("./sendmail");
 
 function start(response, request) {
     console.log("Request handler 'start' was called.");
@@ -47,6 +48,10 @@ exports.showorder = function(response,request){
 
 exports.addexpress = function(response,request){
     addex.addexpress(response,request);
+}
+
+exports.sendmail = function(response,request){
+    sendmail.sendmail(response,request);
 }
 
 exports.start = start;
