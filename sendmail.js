@@ -24,7 +24,7 @@ exports.sendmail = function(response, request){
 
     var mailOptions = {
         from: "85150091@qq.com", // sender address
-        to: '304261359@qq.com', // list of receivers
+        to: '304261359@qq.com,15153611337@139.com', // list of receivers
         subject: "有新订单", // Subject line
         text: strtext, // plaintext body
         html: "<b>"+strtext+"</b>" // html body
