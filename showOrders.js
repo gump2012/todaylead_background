@@ -85,6 +85,7 @@ function returnOrders(response){
             '快递名称:<input type="text" name="express_name" />'+
             '<input type="submit" value="添加物流信息" />'+
             '</form>';
+        strhtml +='<form action="/showdeleteorders" method="get">'+'<input type="submit" value="显示被煞笔们删除的订单" />'+'</form>'
         strhtml += '<P align=left>';
         strhtml += '订单号';
         strhtml += strseparator;
@@ -250,4 +251,60 @@ function addOneVolume(productlist,index){
             addOneVolume(productlist,index+1);
         });
     }
+}
+
+exports.showdelorder = function (response, request){
+    returndelOrders(response);
+}
+
+function returndelOrders(response){
+    var ordermodel = mongoose.model('todayDeleteOrder');
+    ordermodel.find({},{},{sort:{'_id': -1}},function(err,docs){
+
+        strhtml ='<html>'+
+            '<head>'+
+            '<meta http-equiv="Content-Type" content="text/html; '+
+            'charset=UTF-8" />'+
+            '</head>'+
+            '<body>';
+
+        strhtml +='<form action="/showorders" method="post">'+ '<input type="text" name="dajiji"/>'+'<input type="submit" value="确认该订单号" />'+'</form>'
+        strhtml +='<form action="/addexpress" method="post">订单号:<input type="text" name="order_id" />'+
+            '快递号:<input type="text" name="express_number" />'+
+            '快递名称:<input type="text" name="express_name" />'+
+            '<input type="submit" value="添加物流信息" />'+
+            '</form>';
+        strhtml +='<form action="/showdeleteorders" method="get">'+'<input type="submit" value="显示被煞笔们删除的订单" />'+'</form>'
+        strhtml += '<P align=left>';
+        strhtml += '订单号';
+        strhtml += strseparator;
+        strhtml += '手机号';
+        strhtml += strseparator;
+        strhtml += '地址';
+        strhtml += strseparator;
+        strhtml += '联系人';
+        strhtml += strseparator;
+        strhtml += '商品数量';
+        strhtml += strseparator;
+        strhtml += '运费';
+        strhtml += strseparator;
+        strhtml += '总价';
+        strhtml += strseparator;
+        strhtml += '商品列表';
+        strhtml += strseparator;
+        strhtml += '留言';
+        strhtml += strseparator;
+        strhtml += '付款方式';
+        strhtml += strseparator;
+        strhtml += '快递名称代号';
+        strhtml += strseparator;
+        strhtml += '快递号';
+        strhtml += strseparator;
+        strhtml += '来自渠道'
+        strhtml += '</P>';
+
+        fillOrderInfo(docs,0,response);
+
+
+    });
 }

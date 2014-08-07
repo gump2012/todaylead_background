@@ -10,6 +10,7 @@ handle["/upload"] = requestHandlers.upload;
 handle["/showorders"] = requestHandlers.showorder;
 handle["/addexpress"] = requestHandlers.addexpress;
 handle["/sendmail"] = requestHandlers.sendmail;
+handle["/showdeleteorders"] = requestHandlers.showdeleteorder;
 
 server.start(router.route, handle);
 db.start();

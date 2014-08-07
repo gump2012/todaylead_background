@@ -54,5 +54,9 @@ exports.sendmail = function(response,request){
     sendmail.sendmail(response,request);
 }
 
+exports.showdeleteorder = function(response,request){
+    showorders.showdelorder(response,request);
+}
+
 exports.start = start;
 exports.upload = upload;
