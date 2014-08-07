@@ -85,7 +85,7 @@ function returnOrders(response){
             '快递名称:<input type="text" name="express_name" />'+
             '<input type="submit" value="添加物流信息" />'+
             '</form>';
-        strhtml +='<form action="/showdeleteorders" method="get">'+'<input type="submit" value="显示被煞笔们删除的订单" />'+'</form>'
+        strhtml +='<form action="/showdeleteorders" method="get">'+'<input type="submit" value="显示删除的订单" />'+'</form>'
         strhtml += '<P align=left>';
         strhtml += '订单号';
         strhtml += strseparator;
