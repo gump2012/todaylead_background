@@ -20,7 +20,8 @@ exports.sendmail = function(response, request){
 // setup e-mail data with unicode symbols
 
     var strtext = "有新订单"+"<br />" +
-        assistant + "<br />";
+        assistant + "<br />" +
+        "<a href=\"http://latest.toupai360.com:8888/showorders\">showorder</a>" + "<br />";
 
     var mailOptions = {
         from: "85150091@qq.com", // sender address
