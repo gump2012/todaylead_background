@@ -21,7 +21,7 @@ exports.sendmail = function(response, request){
 
     var strtext = "有新订单"+"<br />" +
         assistant + "<br />" +
-        "<a href=\"http://latest.toupai360.com:8888/showorders\">showorder</a>" + "<br />";
+        "<a href=\"http://latest.toupai360.com:8888/showorders\">显示订单</a>" + "<br />";
 
     var mailOptions = {
         from: "85150091@qq.com", // sender address
